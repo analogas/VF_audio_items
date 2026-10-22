@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: vf-audio-sandelys
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: APP_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vf-audio-db
+          property: connectionString
+
+databases:
+  - name: vf-audio-db
+    plan: free
+    databaseName: sandelys
+    user: sandelys
