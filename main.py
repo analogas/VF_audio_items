@@ -23,9 +23,9 @@ def shell(body):
     labels={'/actions/item': '+ Pridėti daiktą', '/actions/category': '+ Pridėti kategoriją', '/actions/case': '+ Naujas case’as', '/actions/show': '+ Nauja išvyka', '/actions/vehicle': '+ Pridėti automobilį'}
     def fold(m):
         label=labels.get(m.group(1))
-        return '<details><summary>'+label+'</summary>'+m.group(0)+'</details>' if label else m.group(0)
+        return '<details class="panel"><summary>'+label+'</summary>'+m.group(0)+'</details>' if label else m.group(0)
     body=re.sub(r'<form method="post" action="([^"]+)">.*?</form>',fold,body,flags=re.S)
-    return HTMLResponse('<!doctype html><html lang="lt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VF · Audio sandėlys</title><style>*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#17243b;font:16px/1.55 system-ui,sans-serif}header{background:white;border-bottom:1px solid #dce3ef;padding:20px max(16px,calc((100vw - 960px)/2))}.brand{font-size:22px;font-weight:800;margin-bottom:14px}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{padding:9px 12px;background:#eef3ff;border-radius:9px;font-size:14px}main{max-width:960px;margin:auto;padding:28px 20px 100px}h1{font-size:32px;letter-spacing:-.7px;line-height:1.2}h2{font-size:20px}a{color:#2856db;text-decoration:none}a:hover{text-decoration:underline}section,details{background:white;border:1px solid #dce3ef;border-radius:14px;padding:20px;margin:14px 0}small,.muted{color:#617189}summary{cursor:pointer;color:#2856db;font-weight:650}input,select,button{font:inherit;min-height:46px;border-radius:9px;max-width:100%}input,select{display:block;width:100%;padding:11px 13px;border:1px solid #bdc9dc;background:white;color:#17243b;margin:6px 0 16px}input[type=hidden]{display:none}button,.button{display:inline-block;padding:11px 17px;background:#2856db;color:white;border:0;font-weight:650;cursor:pointer}.button{border-radius:9px}label{display:block;font-size:14px;font-weight:650;margin-top:12px}input:focus,select:focus,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #a7bfff;outline-offset:2px}.notice{padding:12px 16px;border-left:3px solid #97afe0;background:#edf2fb}.success{background:#e3f5e9;color:#225b37;padding:12px;border-radius:9px}.error{background:#fff0ee;color:#9a2e22;padding:12px;border-radius:9px}.row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.tools{margin:18px 0}.metrics{display:flex;gap:10px;flex-wrap:wrap}.metric{background:#eef3fa;border-radius:9px;padding:10px 14px;flex:1}.metric strong{display:block;font-size:24px}.metric span{font-size:12px;color:#617189}.empty{padding:20px;color:#617189;border:1px dashed #bdc9dc;border-radius:10px}.back{display:inline-block;margin-bottom:12px}@media(max-width:600px){main{padding:22px 16px 110px}header{padding:16px}nav{position:fixed;bottom:0;left:0;right:0;z-index:20;justify-content:space-around;flex-wrap:nowrap;background:white;border-top:1px solid #dce3ef;padding:8px 4px calc(8px + env(safe-area-inset-bottom));gap:2px}nav a{background:white;font-size:11px;padding:10px 5px}section{padding:16px}h1{font-size:28px}}</style></head><body><header><div class="brand">VF · Audio sandėlys</div><nav aria-label="Pagrindinė navigacija"><a href="/">Apžvalga</a><a href="/items">Daiktai</a><a href="/cases">Case’ai</a><a href="/shows">Išvykos</a><a href="/vehicles">Automobiliai</a></nav></header><main>' + body + '</main>' + "<script>(()=>{const p=location.pathname;document.querySelectorAll('nav a').forEach(a=>{const h=a.getAttribute('href');if(h===p||(h!=='/'&&p.startsWith(h+'/'))){a.setAttribute('aria-current','page');a.style.background='#dce7ff';a.style.fontWeight='750'}});if(p==='/login')document.querySelector('nav').hidden=true;const main=document.querySelector('main');const cards=[...main.querySelectorAll(':scope > section')];if(['/items','/shows','/cases','/vehicles'].includes(p)&&cards.length){const box=document.createElement('div');box.className='tools';const search=document.createElement('input');search.type='search';search.placeholder='Ieškoti šiame sąraše…';search.setAttribute('aria-label','Paieška');box.append(search);let filter;if(p==='/items'){filter=document.createElement('select');filter.setAttribute('aria-label','Kategorija');filter.add(new Option('Visos kategorijos',''));[...new Set(cards.map(s=>s.querySelector('small')?.textContent).filter(Boolean))].forEach(v=>filter.add(new Option(v,v)));box.append(filter)}main.querySelector('h1')?.after(box);const msg=document.createElement('p');msg.textContent='Nieko nerasta.';msg.hidden=true;main.append(msg);const update=()=>{let count=0;cards.forEach(c=>{const show=c.textContent.toLocaleLowerCase('lt').includes(search.value.toLocaleLowerCase('lt'))&&(!filter?.value||c.querySelector('small')?.textContent===filter.value);c.hidden=!show;if(show)count++});msg.hidden=count!==0};search.addEventListener('input',update);filter?.addEventListener('change',update)}})();</script>" + '</body></html>')
+    return HTMLResponse('<!doctype html><html lang="lt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VF · Audio sandėlys</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f6fa;color:#18243a;font:16px/1.55 system-ui,-apple-system,sans-serif}header{background:white;border-bottom:1px solid #dde4ef}.header,main{max-width:1040px;margin:auto;padding:20px 24px}.brand{font-weight:800;font-size:22px;margin:0 0 14px}nav{display:flex;gap:8px;flex-wrap:wrap}a{color:#2856d9;text-decoration:none}a:hover{text-decoration:underline}nav a{padding:9px 13px;border-radius:9px;font-size:14px}nav a[aria-current=page]{background:#e9efff;font-weight:750}main{padding-top:28px;padding-bottom:110px}h1{font-size:32px;line-height:1.2;letter-spacing:-.8px}h2{font-size:20px;margin:8px 0}h3{font-size:17px;margin:8px 0}section,details.panel{background:white;border:1px solid #dde4ef;border-radius:14px;padding:20px;margin:14px 0}small,.muted{color:#64738b}p{margin:9px 0}summary{cursor:pointer;font-weight:650;color:#2856d9;padding:6px 0}details[open]>summary{margin-bottom:10px}form{margin:10px 0}input,select,button,.button{font:inherit;max-width:100%;min-height:46px;border-radius:9px}input,select{display:block;width:100%;border:1px solid #bac7dc;background:white;color:#18243a;padding:10px 12px;margin:5px 0 14px}input[type=hidden]{display:none}input[type=checkbox]{display:inline-block;width:22px;min-height:22px;height:22px;margin:0;flex:none;accent-color:#2856d9}button,.button{display:inline-block;padding:10px 16px;border:0;background:#2856d9;color:white;font-weight:650;cursor:pointer}.secondary{background:#eaf0fb;color:#254676}.danger{background:#fff0ed;color:#9b3828}label{display:block;font-size:14px;font-weight:600;margin:10px 0 4px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.inline{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.inline label{flex:1;min-width:170px}.inline select{margin-bottom:0}.check{display:flex;align-items:center;gap:14px;padding:12px;background:#f5f7fc;border-radius:9px}.check span{flex:1}.check small{display:block}.notice,.success,.error{padding:12px 16px;border-radius:9px;font-size:14px;margin:12px 0}.notice{background:#edf2fb;color:#47617f}.success{background:#e4f5e9;color:#245938}.error{background:#fff0ed;color:#9b3828}.stats{display:flex;gap:10px;margin:20px 0}.stat{flex:1;background:white;border:1px solid #dde4ef;border-radius:11px;padding:12px;font-size:12px;color:#64738b}.stat strong{display:block;font-size:25px;color:#18243a}.empty{padding:22px;border:1px dashed #b6c3d6;border-radius:12px;color:#64738b}.tools{margin:20px 0}.back{display:inline-block;margin-bottom:12px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 4px;border-bottom:1px solid #e2e7f0}th{color:#64738b}.table-wrap{overflow-x:auto}button:focus-visible,a:focus-visible,input:focus,select:focus,summary:focus-visible{outline:3px solid #9eb9ff;outline-offset:2px}[hidden]{display:none!important}@media(max-width:600px){.header,main{padding-left:16px;padding-right:16px}nav{position:fixed;bottom:0;left:0;right:0;z-index:20;justify-content:space-around;flex-wrap:nowrap;gap:0;background:white;border-top:1px solid #dde4ef;padding:8px 3px calc(8px + env(safe-area-inset-bottom))}nav a{font-size:11px;padding:11px 6px}h1{font-size:27px}section,details.panel{padding:16px}.inline{align-items:stretch}.inline label{flex-basis:100%}.inline button{width:100%}}</style></head><body><header><div class="header"><div class="brand">VF · Audio sandėlys</div><nav aria-label="Pagrindinis meniu"><a href="/">Apžvalga</a><a href="/shows">Išvykos</a><a href="/cases">Case’ai</a><a href="/items">Inventorius</a><a href="/vehicles">Automobiliai</a></nav></div></header><main>' + body + '</main>' + "<script>(()=>{const p=location.pathname;document.querySelectorAll('nav a').forEach(a=>{const h=a.getAttribute('href');if(h===p||(h!=='/'&&p.startsWith(h+'/')))a.setAttribute('aria-current','page')});if(p==='/login')document.querySelector('nav').hidden=true;\nconst labels={name:'Pavadinimas',category_id:'Kategorija',qty:'Kiekis, vnt.',city:'Miestas',date_out:'Išvykimo data',password:'Slaptažodis',item_id:'Daiktas'};document.querySelectorAll('form input:not([type=hidden]):not([type=checkbox]),form select').forEach((el,i)=>{if(el.closest('label')||el.previousElementSibling?.tagName==='LABEL'||!labels[el.name])return;const l=document.createElement('label');el.id=el.id||'field-'+i;l.htmlFor=el.id;l.textContent=labels[el.name];el.before(l)});\nif(['/items','/shows','/cases','/vehicles'].includes(p)){const main=document.querySelector('main'),cards=[...main.querySelectorAll(':scope > section')];if(cards.length){const bar=document.createElement('div');bar.className='tools';const input=document.createElement('input');input.type='search';input.placeholder='Ieškoti šiame sąraše…';input.setAttribute('aria-label','Ieškoti sąraše');bar.append(input);let filter;if(p==='/items'){filter=document.createElement('select');filter.setAttribute('aria-label','Kategorija');filter.add(new Option('Visos kategorijos',''));[...new Set(cards.map(s=>s.querySelector('small')?.textContent).filter(Boolean))].forEach(v=>filter.add(new Option(v,v)));bar.append(filter)}main.querySelector('h1')?.after(bar);const msg=document.createElement('p');msg.textContent='Nieko nerasta.';msg.hidden=true;main.append(msg);function update(){let n=0;cards.forEach(c=>{const show=c.textContent.toLocaleLowerCase('lt').includes(input.value.toLocaleLowerCase('lt'))&&(!filter?.value||c.querySelector('small')?.textContent===filter.value);c.hidden=!show;if(show)n++});msg.hidden=n>0}input.addEventListener('input',update);filter?.addEventListener('change',update)}}\ndocument.querySelectorAll('[data-case-picker]').forEach(f=>{const input=f.querySelector('[data-picker-search]'),rows=[...f.querySelectorAll('[data-picker-row]')],count=f.querySelector('[data-selection-count]');function update(){let n=0;rows.forEach(r=>{r.hidden=!r.textContent.toLocaleLowerCase('lt').includes(input.value.toLocaleLowerCase('lt'));if(r.querySelector('input').checked)n++});count.textContent='Pasirinkta: '+n}input.addEventListener('input',update);f.addEventListener('change',update);update()});\ndocument.querySelectorAll('[data-confirm]').forEach(f=>f.addEventListener('submit',e=>{if(!confirm(f.dataset.confirm))e.preventDefault()}));})();</script>" + '</body></html>')
 
 @app.on_event('startup')
 def startup():
@@ -108,61 +108,120 @@ def shows(request: Request):
     if not request.session.get('ok'): return redirect('/login')
     with connect() as c:
         rows=c.execute('SELECT s.*, (SELECT COUNT(*) FROM cases cs WHERE cs.show_id=s.id) AS case_count FROM shows s ORDER BY date_out DESC').fetchall()
-    body='<h1>Išvykos</h1>'+form_open(request,'/actions/show')+'<label>Pavadinimas</label><input name="name" required maxlength="200"><label>Miestas</label><input name="city" required maxlength="200"><label>Išvykimo data</label><input type="date" name="date_out" required><button>Sukurti išvyką</button></form>'
+    body='<h1>Išvykos</h1>'+form_open(request,'/actions/show')+'<input name="name" required maxlength="200"><input name="city" required maxlength="200"><input type="date" name="date_out" required><button>Sukurti išvyką</button></form>'
     for s in rows:
-        body+='<section><div class="row"><h2><a href="/shows/'+str(s['id'])+'">'+esc(s['name'])+'</a></h2><a class="button" href="/shows/'+str(s['id'])+'">Atidaryti</a></div><p>'+esc(s['city'])+' · '+esc(s['date_out'])+'</p><small>Priskirta case’ų: '+str(s['case_count'])+'</small></section>'
+        body+='<section><div class="row"><h2><a href="/shows/'+str(s['id'])+'">'+esc(s['name'])+'</a></h2><a class="button" href="/shows/'+str(s['id'])+'">Valdyti išvyką</a></div><p>'+esc(s['city'])+' · '+esc(s['date_out'])+'</p><small>Case’ų: '+str(s['case_count'])+'</small></section>'
     if not rows: body+='<p class="empty">Išvykų dar nėra. Sukurkite pirmą išvyką.</p>'
     return shell(body)
 
+def trip_form(request,s):
+    return form_open(request,f"/shows/{s['id']}/manage")+'<input type="hidden" name="op" value="edit"><label for="trip-name">Pavadinimas</label><input id="trip-name" name="name" value="'+esc(s['name'])+'" maxlength="200" required><label for="trip-city">Miestas</label><input id="trip-city" name="city" value="'+esc(s['city'])+'" maxlength="200" required><label for="trip-date">Išvykimo data</label><input id="trip-date" type="date" name="date_out" value="'+esc(s['date_out'])+'" required><button>Išsaugoti išvyką</button></form>'
+
+def trip_error(show_id,message,status=400,extra=''):
+    r=shell('<h1>Pakeitimai neišsaugoti</h1><p class="error" role="alert">'+esc(message)+'</p>'+extra+'<p><a class="button secondary" href="/shows/'+str(show_id)+'">Grįžti į išvyką</a></p>')
+    r.status_code=status
+    return r
+
 @app.get('/shows/{show_id}')
-def show_detail(request: Request, show_id: int):
+def show_detail(request: Request,show_id:int):
     if not request.session.get('ok'): return redirect('/login')
     with connect() as c:
         show=c.execute('SELECT * FROM shows WHERE id=%s',(show_id,)).fetchone()
-        if not show: return HTMLResponse('Išvyka nerasta. <a href="/shows">Visos išvykos</a>',status_code=404)
-        cases=c.execute('SELECT cs.*,v.name AS vehicle_name,COALESCE((SELECT SUM(qty) FROM contents WHERE case_id=cs.id),0) AS item_count FROM cases cs LEFT JOIN vehicles v ON v.id=cs.vehicle_id WHERE cs.show_id=%s ORDER BY v.name,cs.name',(show_id,)).fetchall()
+        if not show:return trip_error(show_id,'Išvyka nerasta.',404)
+        cases=c.execute('SELECT cs.*,v.name AS vehicle_name FROM cases cs LEFT JOIN vehicles v ON v.id=cs.vehicle_id WHERE cs.show_id=%s ORDER BY v.name,cs.name',(show_id,)).fetchall()
+        available=c.execute('SELECT cs.*,COALESCE((SELECT SUM(qty) FROM contents WHERE case_id=cs.id),0) AS item_count FROM cases cs WHERE cs.show_id IS NULL ORDER BY cs.name').fetchall()
+        busy=c.execute('SELECT cs.id,cs.name,s.name AS show_name FROM cases cs JOIN shows s ON s.id=cs.show_id WHERE cs.show_id<>%s ORDER BY cs.name',(show_id,)).fetchall()
+        vehicles=c.execute('SELECT * FROM vehicles ORDER BY name').fetchall()
+        contents=c.execute('SELECT ct.case_id,ct.item_id,ct.qty,i.name,cat.name AS category FROM contents ct JOIN cases cs ON cs.id=ct.case_id JOIN items i ON i.id=ct.item_id LEFT JOIN categories cat ON cat.id=i.category_id WHERE cs.show_id=%s ORDER BY i.name',(show_id,)).fetchall()
+    by_case={};totals={}
+    for r in contents:
+        by_case.setdefault(r['case_id'],[]).append(r)
+        if r['item_id'] not in totals: totals[r['item_id']]={'name':r['name'],'qty':0,'category':r['category']}
+        totals[r['item_id']]['qty']+=r['qty']
     body='<a class="back" href="/shows">← Visos išvykos</a><h1>'+esc(show['name'])+'</h1><p class="muted">'+esc(show['city'])+' · '+esc(show['date_out'])+'</p>'
-    if request.query_params.get('saved')=='1': body+='<p class="success" role="status">Išvykos pakeitimai išsaugoti.</p>'
-    body+='<details><summary>Redaguoti išvyką</summary>'+show_edit_form(request,show)+'</details>'
-    body+='<h2>Priskirti case’ai ('+str(len(cases))+')</h2><p class="muted">Automobilio priskyrimas yra planas, ne fizinio pakrovimo patvirtinimas.</p>'
-    group=None
+    notices={'edit':'Išvyka atnaujinta.','add':'Pasirinkti case’ai pridėti.','vehicle':'Automobilis pakeistas.','remove':'Case’as pašalintas iš išvykos. Jo turinys nepakeistas.'}
+    notice=notices.get(request.query_params.get('done',''))
+    if notice:body+='<p class="success" role="status">'+notice+'</p>'
+    missing=sum(1 for cs in cases if cs['vehicle_id'] is None)
+    body+='<div class="stats"><div class="stat"><strong>'+str(len(cases))+'</strong>Case’ų</div><div class="stat"><strong>'+str(len({cs['vehicle_id'] for cs in cases if cs['vehicle_id'] is not None}))+'</strong>Automobilių</div><div class="stat"><strong>'+str(missing)+'</strong>Be automobilio</div></div>'
+    if missing:body+='<p class="notice">Kitas veiksmas: priskirkite automobilius '+str(missing)+' case’ams.</p>'
+    body+='<details class="panel"><summary>Redaguoti išvykos informaciją</summary>'+trip_form(request,show)+'</details>'
+    body+='<details class="panel" id="add-cases"><summary>+ Pridėti case’us į išvyką</summary>'
+    if available:
+        body+='<form method="post" action="/shows/'+str(show_id)+'/manage" data-case-picker>'+token(request)+'<input type="hidden" name="op" value="add"><input type="search" data-picker-search placeholder="Ieškoti laisvo case’o…" aria-label="Ieškoti case’o">'
+        for cs in available:
+            body+='<label class="check" data-picker-row><input type="checkbox" name="case_ids" value="'+str(cs['id'])+'"><span>'+esc(cs['name'])+'<small>Nepriskirtas išvykai · '+str(cs['item_count'])+' vnt.</small></span></label>'
+        body+='<label>Automobilis pasirinktiems case’ams (nebūtina)<select name="vehicle_id"><option value="">Pasirinksiu vėliau</option>'+options(vehicles)+'</select></label><p class="muted" data-selection-count>Pasirinkta: 0</p><button>Pridėti pasirinktus case’us</button></form>'
+    else: body+='<p class="empty">Laisvų case’ų nėra. Sukurkite naują arba atkabinkite case’ą nuo kitos išvykos.</p>'
+    if busy:
+        body+='<details><summary>Kitoms išvykoms priskirti case’ai ('+str(len(busy))+')</summary>'
+        for cs in busy:body+='<p>'+esc(cs['name'])+' · '+esc(cs['show_name'])+'</p>'
+        body+='</details>'
+    body+='</details><h2>Case’ai ir automobiliai</h2><p class="muted">Tai pakrovimo planas, ne fizinio pakrovimo ar grąžinimo patvirtinimas.</p>'
+    if not cases:body+='<p class="empty">Pridėkite case’us naudodami „+ Pridėti case’us į išvyką“ aukščiau.</p>'
+    current=object()
     for cs in cases:
-        vehicle=cs['vehicle_name'] or 'Automobilis nepriskirtas'
-        if group!=vehicle: body+='<h2>'+esc(vehicle)+'</h2>';group=vehicle
-        body+='<section><div class="row"><h2>'+esc(cs['name'])+'</h2><a class="button" href="/cases/'+str(cs['id'])+'">Turinys ir priskyrimas</a></div><small>Turinys: '+str(cs['item_count'])+' vnt.</small></section>'
-    if not cases: body+='<p class="empty">Šiai išvykai dar nepriskirtas nė vienas case’as.</p>'
-    body+='<p><a class="button" href="/cases">Pasirinkti case’us</a></p><p class="muted">Atidarykite case’ą ir skiltyje „Priskyrimas“ pasirinkite šią išvyką bei automobilį. Norėdami atkabinti case’ą, pasirinkite „Sandėlyje“.</p>'
+        if current!=cs['vehicle_id']:
+            body+='<h3>'+esc(cs['vehicle_name'] or 'Automobilis nepriskirtas')+'</h3>';current=cs['vehicle_id']
+        rows=by_case.get(cs['id'],[])
+        body+='<section><div class="row"><h2>'+esc(cs['name'])+'</h2><small>'+str(sum(r['qty'] for r in rows))+' vnt.</small></div>'
+        body+='<details><summary>Peržiūrėti turinį ('+str(len(rows))+' eilučių)</summary>'
+        if rows:
+            body+='<div class="table-wrap"><table><thead><tr><th>Daiktas</th><th>Kiekis</th></tr></thead><tbody>'
+            for r in rows:body+='<tr><td>'+esc(r['name'])+'</td><td>'+str(r['qty'])+'</td></tr>'
+            body+='</tbody></table></div>'
+        else: body+='<p class="notice">Case’as tuščias.</p>'
+        body+='<p><a href="/cases/'+str(cs['id'])+'">Redaguoti case’o turinį →</a></p></details>'
+        body+=form_open(request,f'/shows/{show_id}/manage')+'<input type="hidden" name="op" value="vehicle"><input type="hidden" name="case_id" value="'+str(cs['id'])+'"><div class="inline"><label>Automobilis<select name="vehicle_id"><option value="">Nepriskirtas</option>'+options(vehicles,cs['vehicle_id'])+'</select></label><button>Išsaugoti automobilį</button></div></form>'
+        body+='<form method="post" action="/shows/'+str(show_id)+'/manage" data-confirm="Pašalinti case’ą iš šios išvykos? Case’as ir jo turinys nebus ištrinti.">'+token(request)+'<input type="hidden" name="op" value="remove"><input type="hidden" name="case_id" value="'+str(cs['id'])+'"><button class="danger">Pašalinti iš išvykos</button></form></section>'
+    body+='<details class="panel"><summary>Bendras išvykos įrangos sąrašas ('+str(len(totals))+' eilučių)</summary>'
+    if totals:
+        body+='<div class="table-wrap"><table><thead><tr><th>Daiktas</th><th>Kategorija</th><th>Kiekis</th></tr></thead><tbody>'
+        for r in sorted(totals.values(),key=lambda x:x['name'].lower()):body+='<tr><td>'+esc(r['name'])+'</td><td>'+esc(r['category'])+'</td><td>'+str(r['qty'])+'</td></tr>'
+        body+='</tbody></table></div>'
+    else:body+='<p>Priskirtuose case’uose nėra daiktų.</p>'
+    body+='</details><p class="notice">Sąrašas rodo dabartinį case’ų turinį. Ši versija dar nefiksuoja istorinio išvežimo sąrašo. Kitų žmonių pakeitimus matysite perkrovę puslapį.</p>'
     return shell(body)
 
-def show_edit_form(request, show):
-    return form_open(request,'/shows/'+str(show['id'])+'/edit')+'<label for="show-name">Pavadinimas</label><input id="show-name" name="name" maxlength="200" value="'+esc(show['name'])+'" required><label for="show-city">Miestas</label><input id="show-city" name="city" maxlength="200" value="'+esc(show['city'])+'" required><label for="show-date">Išvykimo data</label><input id="show-date" type="date" name="date_out" value="'+esc(show['date_out'])+'" required><button>Išsaugoti pakeitimus</button></form>'
-
-@app.post('/shows/{show_id}/edit')
-async def show_edit(request: Request, show_id: int):
-    if not request.session.get('ok'): return redirect('/login')
+@app.post('/shows/{show_id}/manage')
+async def manage_show(request: Request,show_id:int):
+    if not request.session.get('ok'):return redirect('/login')
     f=await request.form()
     expected=str(request.session.get('csrf',''))
-    if not expected or not hmac.compare_digest(str(f.get('csrf','')),expected):
-        return HTMLResponse('Neteisinga forma. Perkraukite išvykos puslapį ir bandykite dar kartą.',status_code=403)
-    from datetime import date
-    name=str(f.get('name','')).strip()
-    city=str(f.get('city','')).strip()
-    date_out=str(f.get('date_out','')).strip()
-    valid=True
+    if not expected or not hmac.compare_digest(str(f.get('csrf','')),expected):return trip_error(show_id,'Forma paseno. Perkraukite puslapį.',403)
+    op=str(f.get('op',''))
     try:
-        date_out=date.fromisoformat(date_out).isoformat()
-    except ValueError: valid=False
-    if not name or not city or len(name)>200 or len(city)>200: valid=False
-    with connect() as c:
-        found=c.execute('SELECT id FROM shows WHERE id=%s',(show_id,)).fetchone()
-        if not found: return HTMLResponse('Išvyka nerasta.',status_code=404)
-        if valid:
-            c.execute('UPDATE shows SET name=%s,city=%s,date_out=%s WHERE id=%s',(name,city,date_out,show_id))
-    if not valid:
-        body='<h1>Patikrinkite išvykos duomenis</h1><p class="error" role="alert">Pavadinimas ir miestas privalomi (iki 200 simbolių). Įveskite galiojančią išvykimo datą. Pakeitimai neišsaugoti.</p>'
-        body+=show_edit_form(request,{'id':show_id,'name':name,'city':city,'date_out':date_out})+'<a href="/shows/'+str(show_id)+'">Atšaukti</a>'
-        response=shell(body);response.status_code=400;return response
-    return redirect('/shows/'+str(show_id)+'?saved=1')
+        with connect() as c:
+            show=c.execute('SELECT * FROM shows WHERE id=%s FOR UPDATE',(show_id,)).fetchone()
+            if not show:return trip_error(show_id,'Išvyka nerasta.',404)
+            if op=='edit':
+                from datetime import date
+                name=str(f.get('name','')).strip();city=str(f.get('city','')).strip();raw=str(f.get('date_out','')).strip()
+                values={'id':show_id,'name':name,'city':city,'date_out':raw}
+                try:out=date.fromisoformat(raw).isoformat()
+                except ValueError:return trip_error(show_id,'Įveskite galiojančią išvykimo datą.',extra=trip_form(request,values))
+                if not name or not city or len(name)>200 or len(city)>200:return trip_error(show_id,'Pavadinimas ir miestas privalomi, iki 200 simbolių.',extra=trip_form(request,values))
+                c.execute('UPDATE shows SET name=%s,city=%s,date_out=%s WHERE id=%s',(name,city,out,show_id))
+            elif op in ('add','vehicle','remove'):
+                vehicle_id=int(f['vehicle_id']) if f.get('vehicle_id') else None
+                if vehicle_id is not None and not c.execute('SELECT id FROM vehicles WHERE id=%s',(vehicle_id,)).fetchone():return trip_error(show_id,'Automobilis nerastas.')
+                if op=='add':
+                    ids=sorted(set(int(x) for x in f.getlist('case_ids')))
+                    if not ids:return trip_error(show_id,'Pasirinkite bent vieną case’ą.')
+                    # Lock and validate the entire selection before changing any assignment.
+                    selected=c.execute('SELECT id,show_id FROM cases WHERE id=ANY(%s) ORDER BY id FOR UPDATE',(ids,)).fetchall()
+                    if len(selected)!=len(ids):return trip_error(show_id,'Vienas iš pasirinktų case’ų nebeegzistuoja. Perkraukite puslapį.')
+                    if any(r['show_id'] is not None and r['show_id']!=show_id for r in selected):return trip_error(show_id,'Vieną iš pasirinktų case’ų jau priskyrė kitai išvykai. Nieko nepridėta. Perkraukite puslapį.',409)
+                    c.execute('UPDATE cases SET show_id=%s,vehicle_id=%s WHERE id=ANY(%s) AND show_id IS NULL',(show_id,vehicle_id,ids))
+                else:
+                    cid=int(f['case_id'])
+                    cs=c.execute('SELECT id,show_id FROM cases WHERE id=%s FOR UPDATE',(cid,)).fetchone()
+                    if not cs or cs['show_id']!=show_id:return trip_error(show_id,'Case’as nebepriklauso šiai išvykai. Perkraukite puslapį.',409)
+                    if op=='vehicle':c.execute('UPDATE cases SET vehicle_id=%s WHERE id=%s',(vehicle_id,cid))
+                    else:c.execute('UPDATE cases SET show_id=NULL,vehicle_id=NULL WHERE id=%s',(cid,))
+            else:return trip_error(show_id,'Nežinomas veiksmas.')
+        return redirect(f'/shows/{show_id}?done={op}')
+    except (ValueError,KeyError):return trip_error(show_id,'Patikrinkite pasirinktus laukus ir bandykite dar kartą.')
 
 @app.get('/vehicles')
 def vehicles(request: Request):
@@ -175,7 +234,7 @@ def vehicles(request: Request):
 async def action(request: Request,action:str,cid:int=0):
     if not request.session.get('ok'): return redirect('/login')
     f=await request.form()
-    if not hmac.compare_digest(str(f.get('csrf','')),str(request.session.get('csrf',''))):
+    if not request.session.get('csrf') or not hmac.compare_digest(str(f.get('csrf','')),str(request.session.get('csrf',''))):
         return HTMLResponse('Neteisinga forma. Perkraukite puslapį.',status_code=403)
     try:
         with connect() as c:
@@ -198,6 +257,10 @@ async def action(request: Request,action:str,cid:int=0):
             elif action=='assign':
                 sid=int(f['show_id']) if f.get('show_id') else None
                 vid=int(f['vehicle_id']) if f.get('vehicle_id') and sid else None
+                cs=c.execute('SELECT show_id FROM cases WHERE id=%s FOR UPDATE',(cid,)).fetchone()
+                if not cs: raise ValueError('Case’as nerastas.')
+                if sid is not None and cs['show_id'] is not None and cs['show_id']!=sid:
+                    return shell('<h1>Case’as jau priskirtas kitai išvykai</h1><p>Pirmiausia atkabinkite jį nuo ankstesnės išvykos. Keitimai neišsaugoti.</p><a href="/cases">Grįžti</a>')
                 c.execute('UPDATE cases SET show_id=%s,vehicle_id=%s WHERE id=%s',(sid,vid,cid)); target=f'/cases/{cid}'
             else: return HTMLResponse('Nežinomas veiksmas',status_code=404)
         return redirect(target)
